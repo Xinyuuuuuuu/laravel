@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Estilos para el footer */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Margen adicional para el contenido principal */
+main {
+    margin-bottom: 100px; /* Para que el footer no tape el contenido */
+}
+
+/* Estilos para la lista de retos */
+.list-group-item {
+    margin-bottom: 10px;
+    border-radius: 5px;
+    transition: transform 0.2s;
+}
+
+.list-group-item:hover {
+    transform: scale(1.02);
+}
