@@ -33,6 +33,10 @@ Route::post('/logout', function (Request $request) {
     return redirect('/');
 })->name('logout');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/challenges/create', [ChallengeController::class, 'create'])->name('challenges.create');
+    Route::post('/challenges', [ChallengeController::class, 'store'])->name('challenges.store');
+});//antes que la ruta show para evitar fallos
 
 Route::get('/{category?}', [ChallengeController::class, 'index'])->name('challenges.index');
 Route::get('challenges/{challenge}', [ChallengeController::class, 'show'])->name('challenges.show');
@@ -44,4 +48,7 @@ Route::post('/challenges/{challenge}/join', [ChallengeController::class, 'join']
 Route::get('/user/challenges/{user}', [UserController::class, 'userChallenges'])->name('user.challenges');
 Route::patch('/users/{user}/challenges/{challenge}/status', [UserController::class, 'updateChallengeStatus'])
     ->name('user.challengestatus');
+Route::get('/challenges', [ChallengeController::class, 'index'])->name('challenges.index');
+
+
 

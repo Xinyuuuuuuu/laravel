@@ -16,6 +16,6 @@ class Badge extends Model
 
     //  *********************************************  Erlazioak ***********************************************
     public function users(){
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 }

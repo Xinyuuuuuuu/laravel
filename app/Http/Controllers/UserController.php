@@ -14,12 +14,11 @@ class UserController extends Controller
 {
  
     public function userChallenges(User $user){
-
-
         // Obtener los retos del usuario con la información de la tabla pivot
         $challenges = $user->challenges()->withPivot('status', 'proof', 'completed_at')->get();
+        $badges = $user->badges;
 
-        return view('user.challenges', compact('challenges', 'user'));
+        return view('user.challenges', compact('user', 'challenges', 'badges'));
     }
 
 

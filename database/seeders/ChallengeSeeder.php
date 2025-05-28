@@ -22,7 +22,7 @@ class ChallengeSeeder extends Seeder
                 'points' => 50,
                 'start_date' => now(),
                 'end_date' => now()->addWeek(),
-                'category' => 'Kirola', 
+                'category' => 'Kirola',
             ],
             [
                 'title' => 'Astebetean liburu bat irakurtzea',
@@ -30,7 +30,7 @@ class ChallengeSeeder extends Seeder
                 'points' => 30,
                 'start_date' => now(),
                 'end_date' => now()->addWeek(),
-                'category' => 'Irakurketa', 
+                'category' => 'Irakurketa',
             ],
             [
                 'title' => 'Egunean 10 minutuz meditatu astebetez',
@@ -38,7 +38,7 @@ class ChallengeSeeder extends Seeder
                 'points' => 40,
                 'start_date' => now(),
                 'end_date' => now()->addWeek(),
-                'category' => 'Osasuna', 
+                'category' => 'Osasuna',
             ],
             [
                 'title' => 'Idatzi egunkari bat 30 egunez',
@@ -46,7 +46,7 @@ class ChallengeSeeder extends Seeder
                 'points' => 60,
                 'start_date' => now(),
                 'end_date' => now()->addMonth(),
-                'category' => 'Kultura', 
+                'category' => 'Kultura',
             ],
         ];
 
@@ -54,7 +54,8 @@ class ChallengeSeeder extends Seeder
         foreach ($challenges as $challengeData) {
 
             // Bilatu kategoria DBan izenaren arabera
-          //  $category = Category::where('name', $challengeData['category'])->first();
+            $category = Category::where('name', 'Deporte')->firstOrFail();
+
 
             $challenge = Challenge::create([
                 'title' => $challengeData['title'],
@@ -62,7 +63,7 @@ class ChallengeSeeder extends Seeder
                 'points' => $challengeData['points'],
                 'start_date' => $challengeData['start_date'],
                 'end_date' => $challengeData['end_date'],
-           //     'category_id' => $category->id,
+                'category_id' => $category->id,
             ]);
 
         }

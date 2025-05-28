@@ -21,6 +21,11 @@ class DatabaseSeeder extends Seeder
               'points' => 25,
           ]);
 
-
+          // Ejecutar otros seeders
+        $this->call([
+            CategorySeeder::class,
+            BadgeSeeder::class,
+            ChallengeSeeder::class,
+        ]);
     }
 }
