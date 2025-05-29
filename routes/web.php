@@ -38,6 +38,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/challenges', [ChallengeController::class, 'store'])->name('challenges.store');
 });//antes que la ruta show para evitar fallos
 
+//antes que la ruta /{category?} si no te la detecta como categoria
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register.form');
+
+Route::post('/register', [UserController::class, 'register'])->name('register');
+
+
 Route::get('/{category?}', [ChallengeController::class, 'index'])->name('challenges.index');
 Route::get('challenges/{challenge}', [ChallengeController::class, 'show'])->name('challenges.show');
 Route::post('/challenges/{challenge}/join', [ChallengeController::class, 'join'])
@@ -50,5 +58,12 @@ Route::patch('/users/{user}/challenges/{challenge}/status', [UserController::cla
     ->name('user.challengestatus');
 Route::get('/challenges', [ChallengeController::class, 'index'])->name('challenges.index');
 
+// update challenge fallido "volver a apuntar" user
+Route::patch('/users/{user}/challenges/{challenge}/retry', [UserController::class, 'retryChallenge'])->name('user.challengeretry');
 
+//eliminar challenge user
+Route::delete('/users/{user}/challenges/{challenge}', [UserController::class, 'destroyChallenge'])->name('user.challengeDestroy');
+
+Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
+Route::patch('/user/{user}', [UserController::class, 'update'])->name('user.update');
 

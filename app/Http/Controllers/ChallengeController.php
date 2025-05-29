@@ -14,22 +14,39 @@ class ChallengeController extends Controller
     {
         $categories = Category::orderBy('name')->get(); // array de objetos tipo Category, ordenadas por nombre
         $categoryId = $request->category_id;
+        $search = $request->search;
 
+        // Sin buscador de titulos
+        // if ($categoryId && $categoryId != 0) {
+        //     $selectedCategory = Category::findOrFail($categoryId);//busca la ID de la categoria
+        //     $challenges = $selectedCategory->challenges()->get(); //elementos las challenge de la category seleccionada
+        //     $category = $selectedCategory->name; //guarada el nombre de la categoria
+        // } else {
+        //     $challenges = Challenge::paginate(6);//pagina solo cuando estamos en la categoria TODOS
+        //     $category = 'Todos';
+        // }
+        
         if ($categoryId && $categoryId != 0) {
-            $selectedCategory = Category::findOrFail($categoryId);//busca la ID de la categoria
-            $challenges = $selectedCategory->challenges()->get(); //elementos las challenge de la category seleccionada
-            $category = $selectedCategory->name; //guarada el nombre de la categoria
+            $selectedCategory = Category::findOrFail($categoryId);
+            $query = $selectedCategory->challenges();
+            $category = $selectedCategory->name;
         } else {
-            $challenges = Challenge::paginate(6);//pagina solo cuando estamos en la categoria TODOS
+            $query = Challenge::query();
             $category = 'Todos';
         }
 
+        if ($search) {
+            $query->where('title', 'LIKE', "%$search%");
+        }
+
+        $challenges = $query->paginate(6);
+        //  Solo challenges.index y cualquier archivo incluido dentro de ella 
+        // (como menu.blade.php, si es llamado con @include) pueden acceder a esas variables.
         return view('challenges.index', compact('challenges', 'categories', 'category'));
     }
 
     public function show(Challenge $challenge)
     {
-
 
         $challenge->load([
             'users' => function ($query) {

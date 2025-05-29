@@ -4,6 +4,20 @@
     <div class="container mx-auto p-6">
         <h1 class="text-3xl font-bold text-blue-600 mb-6">{{ $user->name }} erabiltzailearen Erronkak</h1>
 
+        <!-- Filtro de estados -->
+        <form method="GET" class="mb-6">
+            <label for="status" class="font-semibold mr-2">Filtrar por estado:</label>
+            <select name="status" id="status" onchange="this.form.submit()" class="border rounded px-2 py-1">
+                <option value="">-- Todos --</option>
+                @foreach ($availableStatuses as $status)
+                    <option value="{{ $status }}" {{ request('status') === $status ? 'selected' : '' }}>
+                        {{ ucfirst($status) }}
+                    </option>
+                @endforeach
+            </select>
+        </form>
+
+
         <!-- Lista de retos -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach ($challenges as $challenge)
@@ -49,6 +63,32 @@
                             </form>
                         </div>
                     @endif
+
+                    @if ($challenge->pivot->status === 'fallido')
+                        <div class="mt-4 flex gap-2">
+                            <!-- Volver a apuntar -->
+                            <form action="{{ route('user.challengeretry', ['user' => $user->id, 'challenge' => $challenge->id]) }}"
+                                method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600">
+                                    Volver a apuntar
+                                </button>
+                            </form>
+
+                            <!-- Eliminar reto -->
+                            <form
+                                action="{{ route('user.challengeDestroy', ['user' => $user->id, 'challenge' => $challenge->id]) }}"
+                                method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
+                                    Eliminar
+                                </button>
+                            </form>
+                        </div>
+                    @endif
+
 
                     <!-- Enlace a los detalles del reto -->
                     <a href="{{ route('challenges.show', $challenge) }}"

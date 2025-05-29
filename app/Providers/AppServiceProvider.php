@@ -21,7 +21,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('partials.menu', function ($view) {
+        // Si en vez de 'partials.menu' ponemos '*' $categories sería una variable global
+        View::composer('partials.menu', function ($view) { 
             $view->with('categories', Category::orderBy('name')->get());
         });
     }

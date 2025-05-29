@@ -4,7 +4,10 @@
         <ul class="flex space-x-4">
             <li><a href="{{ route('challenges.index', ['category_id' => 0]) }}">Todos</a></li>
 
+            <!-- $categories se obtiene en App\Providers\AppServiceProvider.php -->
             @foreach ($categories as $cat)
+                <!-- genera url /1 con id -->
+                <!-- muestra name de cada categoria en el menu -->
                 <li><a href="{{ route('challenges.index', ['category_id' => $cat->id]) }}">{{ $cat->name }}</a></li>
             @endforeach
 
@@ -22,6 +25,11 @@
                 <a href="{{ route('challenges.create') }}"
                     class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 mr-2">
                     Subir reto
+                </a>
+
+                <a href="{{ route('user.edit', auth()->user()->id) }}"
+                    class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 mr-2">
+                    Editar perfil
                 </a>
 
                 <!-- Cerrar sesión con metodo POST, post es de <form> -->
