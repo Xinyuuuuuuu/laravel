@@ -19,6 +19,7 @@
 
     <!-- Contenido de la página -->
     <main class="p-6">
+      {{-- Espera que la vista tenga la @section('content') --}}
         @yield('content')
     </main>
   @include('partials.footer')

@@ -75,6 +75,7 @@ class ChallengeController extends Controller
 
     public function store(Request $request)
     {
+        //VALIDACIONES
         $validated = $request->validate([
             'title' => 'required|string',
             'description' => 'nullable|string',

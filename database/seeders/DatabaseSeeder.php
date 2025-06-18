@@ -14,12 +14,14 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // ************************ ERABILTZAILEA EZ ALDATU ***************
-          User::factory()->create([
+          User::factory()->create([//puede estar en el UserSeeder tambien
               'name' => 'Test User',
               'email' => 'test@example.com',
               'password' => '12345',
               'points' => 25,
           ]);
+
+          User::factory(10)->create();
 
           // Ejecutar otros seeders
         $this->call([

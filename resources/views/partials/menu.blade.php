@@ -34,7 +34,7 @@
 
                 <!-- Cerrar sesión con metodo POST, post es de <form> -->
                 <form action="{{ route('logout') }}" method="POST" class="inline">
-                    <!-- @csrf inserta automáticamente ese token oculto dentro del formulario -->
+
                     @csrf
 
                     <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">

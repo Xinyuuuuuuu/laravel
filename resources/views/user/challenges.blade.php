@@ -78,7 +78,7 @@
 
                             <!-- Eliminar reto -->
                             <form
-                                action="{{ route('user.challengeDestroy', ['user' => $user->id, 'challenge' => $challenge->id]) }}"
+                                action="{{ route('user.challengeDestroy', [$user, $challenge]) }}"
                                 method="POST">
                                 @csrf
                                 @method('DELETE')
